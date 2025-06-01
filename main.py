@@ -1,4 +1,6 @@
 import pygame
+
+from player import Player
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 
 
@@ -6,8 +8,8 @@ def main():
     pygame.init()
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
     clock = pygame.time.Clock()
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     """ delta time: represents the amount of time that has passed since the last frame was drawn"""
     dt = 0
@@ -18,6 +20,7 @@ def main():
                 return
 
         screen.fill("black")
+        player.draw(screen)
         pygame.display.flip()
 
         # limit the framerate to 60 FPS
