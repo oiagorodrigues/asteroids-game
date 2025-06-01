@@ -1,6 +1,9 @@
 import pygame
 
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
+
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 
 
@@ -12,10 +15,14 @@ def main():
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable,)
+    AsteroidField()
 
     Player.containers = (updatable, drawable)
-
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     """ delta time: represents the amount of time that has passed since the last frame was drawn"""
     dt = 0
@@ -29,8 +36,8 @@ def main():
 
         screen.fill("black")
 
-        for group in drawable:
-            group.draw(screen)
+        for obj in drawable:
+            obj.draw(screen)
 
         pygame.display.flip()
 
