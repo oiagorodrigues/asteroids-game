@@ -1,3 +1,4 @@
+import sys
 import pygame
 
 from player import Player
@@ -22,7 +23,7 @@ def main():
     AsteroidField()
 
     Player.containers = (updatable, drawable)
-    Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     """ delta time: represents the amount of time that has passed since the last frame was drawn"""
     dt = 0
@@ -33,6 +34,10 @@ def main():
                 return
 
         updatable.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.collision_with(player):
+                sys.exit("Game Over!")
 
         screen.fill("black")
 
